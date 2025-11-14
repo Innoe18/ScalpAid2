@@ -150,6 +150,11 @@ def insights():
     return render_template('insights.html', data=historical_data)
 
 
+@app.route('/')
+def root():
+    return redirect(url_for('home'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
