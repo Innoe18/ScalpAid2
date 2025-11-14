@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScalpAid</title>
+    <link rel ="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav>
+    <div class="nav-logo">ScalpAid</div>
+    <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('profile') }}">Profile</a></li>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Settings</a></li>
+    </ul>
+</nav>
+
+<div class="dashboard">
+    <div class="sidebar">
+        <a href="#">Overview</a>
+        <a href="#">Users</a>
+        <a href="#">Sensor Data</a>
+        <a href="#">Reports</a>
+        <a href="#">Settings</a>
+    </div>
+    <div class="main-content">
+        {% block content %}
+        {% endblock %}
+    <h1>Welcome to ScalpAid</h1>
+    <p>Our Flask setup is working ladies :) </p>
+     <a href="{{ url_for('register') }}">Go to Registration</a>
+     <a href="{{ url_for('login') }}">Go to Login</a>
+    </div>
+</body>
+</html>

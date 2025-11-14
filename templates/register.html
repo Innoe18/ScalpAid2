@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration | ScalpAid</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Create an Account</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <p class="flash {{ category }}">{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('register') }}" method="POST">
+            <label>Name</label>
+            <input type="text" name="name" required>
+
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+<label>Hair Type</label>
+<select name="hair_type" required>
+    <option value="">Select your hair type</option>
+    <option value="1a">1a</option>
+    <option value="1b">1b</option>
+    <option value="1c">1c</option>
+    <option value="2a">2a</option>
+    <option value="2b">2b</option>
+    <option value="2c">2c</option>
+    <option value="3a">3a</option>
+    <option value="3b">3b</option>
+    <option value="3c">3c</option>
+    <option value="4a">4a</option>
+    <option value="4b">4b</option>
+    <option value="4c">4c</option>
+</select>
+
+<label>Purpose</label>
+<select name="purpose" required>
+    <option value="">Select your purpose</option>
+    <option value="Treat alopecia">Treat alopecia</option>
+    <option value="Prevent alopecia">Prevent alopecia</option>
+    <option value="Monitor scalp conditions">Monitor scalp conditions</option>
+    <option value="Hair hydration tracking">Hair hydration tracking</option>
+    <option value="General scalp care">General scalp care</option>
+</select>
+
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</body>
+</html>

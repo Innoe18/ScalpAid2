@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.name }}'s Profile | ScalpAid</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>{{ user.name }}'s Profile</h2>
+
+        <div class="profile-section">
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Hair Type:</strong> {{ user.hair_type }}</p>
+            <p><strong>Purpose:</strong> {{ user.purpose }}</p>
+        </div>
+
+        <div class="scalp-info">
+            <h3>Scalp Health Data</h3>
+            <!-- Placeholder for future sensor readings -->
+            <p>No sensor data available yet.</p>
+        </div>
+
+        <div class="tips">
+            <h3>Hair & Scalp Tips</h3>
+            <ul>
+                <li>Keep your scalp clean and moisturized.</li>
+                <li>Track hair hydration and scalp condition regularly.</li>
+                <li>Use gentle shampoos and avoid harsh chemicals.</li>
+                <li>Massage your scalp to stimulate circulation.</li>
+            </ul>
+        </div>
+        <div class="scalp-info">
+    <h3>Scalp Health Data</h3>
+    <p><strong>Scalp Moisture:</strong> {{ sensor_data.scalp_moisture }}</p>
+    <p><strong>Scalp Temperature:</strong> {{ sensor_data.scalp_temperature }}</p>
+    <p><strong>Hair Strength:</strong> {{ sensor_data.hair_strength }}</p>
+</div>
+
+
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+</body>
+</html>
