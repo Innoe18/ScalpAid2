@@ -64,13 +64,15 @@ def login():
                 session['user_name'] = user['name']
                 session['user_email'] = user['email']
                 flash(f"Welcome back, {user['name']}!", "success")
-                return redirect(url_for('profile'))
+                return redirect(url_for('home'))
             else:
                 flash("Invalid email or password.", "danger")
         except mysql.connector.Error as err:
             flash(f"Database error: {err}", "danger")
 
     return render_template('login.html')
+
+
 @app.route('/profile')
 def profile():
     if 'user_id' not in session:
@@ -104,9 +106,48 @@ def profile():
         return redirect(url_for('home'))
 
 
-@app.route('/')
+@app.route('/home')
 def home():
-    return render_template('layout.html')
+    if 'user_id' not in session:
+        flash("Please log in to view the dashboard.", "warning")
+        return redirect(url_for('login'))
+
+    # Placeholder sensor values
+    sensor_data = {
+        "scalp_moisture": 0,
+        "scalp_temperature": 0,
+        "hair_strength": 0
+    }
+
+    # Define healthy ranges for alerts
+    healthy_ranges = {
+        "scalp_moisture": (20, 60),  # % RH
+        "scalp_temperature": (32, 36), # °C
+        "hair_strength": (50, 100)   # arbitrary units
+    }
+
+    return render_template(
+        'home.html', 
+        user_name=session['user_name'], 
+        sensor_data=sensor_data, 
+        healthy_ranges=healthy_ranges
+    )
+
+
+@app.route('/insights')
+def insights():
+    if 'user_id' not in session:
+        flash("Please log in to view insights.", "warning")
+        return redirect(url_for('login'))
+
+    # Placeholder historical data (can be replaced with real DB queries)
+    historical_data = [
+        {"timestamp": "2025-11-14 08:00", "scalp_moisture": 0, "scalp_temperature": 0, "hair_strength": 0},
+        {"timestamp": "2025-11-14 12:00", "scalp_moisture": 0, "scalp_temperature": 0, "hair_strength": 0},
+        {"timestamp": "2025-11-14 16:00", "scalp_moisture": 0, "scalp_temperature": 0, "hair_strength": 0}
+    ]
+
+    return render_template('insights.html', data=historical_data)
 
 
 if __name__ == '__main__':

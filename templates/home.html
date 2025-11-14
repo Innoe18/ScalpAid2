@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | ScalpAid</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .dashboard { display: flex; gap: 20px; flex-wrap: wrap; }
+        .card { padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); width: 200px; text-align: center; }
+        .alert { color: red; font-weight: bold; }
+        .normal { color: green; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ user_name }}!</h2>
+        <div class="dashboard">
+            {% for key, value in sensor_data.items() %}
+                {% set low, high = healthy_ranges[key] %}
+                {% if value < low or value > high %}
+                    {% set status_class = "alert" %}
+                {% else %}
+                    {% set status_class = "normal" %}
+                {% endif %}
+
+                <div class="card">
+                    <h4>{{ key.replace("_"," ").title() }}</h4>
+                    <p class="{{ status_class }}">{{ value }}{% if key=="scalp_moisture" %}%{% elif key=="scalp_temperature" %}°C{% endif %}</p>
+                    {% if status_class=="alert" %}
+                        <p>⚠ Value out of healthy range!</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="{{ url_for('profile') }}">Profile</a> | 
+        <a href="{{ url_for('insights') }}">Insights</a>
+    </div>
+</body>
+</html>
